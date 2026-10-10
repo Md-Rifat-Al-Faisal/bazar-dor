@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
+import NavbarAuth from "./NavbarAuth";
 
 interface RawCategory {
   slug?: string;
@@ -85,8 +86,7 @@ export default async function Navbar() {
         </div>
 
         <div className="navbar-end gap-2">
-          <Link href="/signin" className="btn btn-ghost font-bold">সাইন ইন</Link>
-          <Link href="/signup" className="btn bg-green-700 text-white hover:bg-green-800 border-none">সাইন আপ</Link>
+          <NavbarAuth />
         </div>
       </div>
 

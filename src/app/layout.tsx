@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="antialiased text-gray-900 bg-white">
         <Navbar />
         {children}
+        <Toaster position="top-center" />
       </body>
     </html>
   );
