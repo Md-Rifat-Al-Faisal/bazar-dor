@@ -5,7 +5,6 @@ import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 export default function NavbarAuth() {
-  // Client-side session check - এটি সবসময় রিয়েলটাইম ডেটা দেবে
   const { data: session, isPending } = authClient.useSession();
 
   const handleSignOut = async () => {
@@ -20,9 +19,9 @@ export default function NavbarAuth() {
   if (session?.user) {
     return (
       <div className="flex items-center gap-3">
-        <span className="text-sm font-bold text-gray-700 hidden sm:block">
+        <Link href="/profile" className="text-sm font-bold text-gray-700 hover:text-green-700 hidden sm:block">
           {session.user.name}
-        </span>
+        </Link>
         <button 
           onClick={handleSignOut} 
           className="btn btn-sm bg-red-50 text-red-600 hover:bg-red-100 border-none"

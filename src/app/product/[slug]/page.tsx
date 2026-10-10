@@ -47,7 +47,6 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
   const badgeColor = isUp ? "text-red-600 bg-red-50" : isDown ? "text-green-600 bg-green-50" : "text-gray-600 bg-gray-50";
   const icon = isUp ? "▲" : isDown ? "▼" : "—";
   
-  // ক্যালকুলেশন: সর্বনিম্ন, সর্বোচ্চ এবং গড় দাম
   const allMinPrices = product.markets?.map(m => m.min) || [product.today || 0];
   const allMaxPrices = product.markets?.map(m => m.max) || [product.today || 0];
   

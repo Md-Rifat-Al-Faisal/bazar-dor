@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  ## 📸 Overview
 
-## Getting Started
+> *![Homepage Preview](./public/Homepage.png)*
+</div>
 
-First, run the development server:
+<h1 align="center">Bazar Dor (বাজার দর) 🛒</h1>
 
+<p align="center">
+  A modern, responsive web application built to help users track the daily market prices of essential commodities in Bangladesh.
+  <br />
+  <a href="[https://bazar-dor-eight-beta.vercel.app](https://bazar-dor-eight-beta.vercel.app)"><strong>View Live Demo »</strong></a>
+</p>
+
+<div align="center">
+  <img src="[https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)" alt="Next.js" />
+  <img src="[https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)" alt="React" />
+  <img src="[https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)" alt="Tailwind" />
+  <img src="[https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)" alt="MongoDB" />
+  <img src="[https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)" alt="Vercel" />
+</div>
+
+<br />
+
+## ✨ Key Features
+
+- **Real-time Price Ticker:** A continuous marquee in the navbar displaying the latest prices and trends.
+- **Dynamic Categories & Sorting:** Browse products by categories with built-in price sorting functionality.
+- **Market Price Comparison:** View detailed minimum, maximum, and average prices across different markets in Bangladesh.
+- **Authentication System:** Secure email/password login and social logins (Google & GitHub) powered by BetterAuth.
+- **Protected Routes:** Product details and user profiles are restricted to authenticated users.
+- **Responsive Design:** Optimized layout scaling perfectly across mobile, tablet, and desktop devices.
+
+## 🛠️ Technology Stack
+
+| Category | Technology |
+| :--- | :--- |
+| **Framework** | Next.js 15 (App Router), React 19 |
+| **Styling** | Tailwind CSS, DaisyUI |
+| **Authentication** | BetterAuth (Email, Google, GitHub) |
+| **Database** | MongoDB Atlas (Native Adapter) |
+| **Deployment** | Vercel |
+
+## 📦 Installation & Setup
+
+**1. Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/bazar-dor.git
+cd bazar-dor
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**2. Install dependencies**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**3. Set up Environment Variables**
+Create a `.env` file in the root directory and add the following:
+```env
+MONGODB_URI="your_mongodb_connection_string"
+BETTER_AUTH_SECRET="your_secret_key"
+BETTER_AUTH_URL="http://localhost:3000"
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
+GITHUB_CLIENT_ID="your_github_client_id"
+GITHUB_CLIENT_SECRET="your_github_client_secret"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**4. Run the development server**
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
