@@ -1,48 +1,25 @@
 import Link from "next/link";
-import { toBengaliNumber } from "@/utils/banglaConverter";
+import { Product } from "@/lib/api";
+import { bn, unitBn, getTrend } from "@/utils/format";
 
-interface ProductCardProps {
-  product: {
-    name: string;
-    slug?: string;
-    price: number;
-    unit: string;
-    emoji: string;
-    trend: string;
-    change: number;
-  };
-}
-
-export default function ProductCard({ product }: ProductCardProps) {
-  const isUp = product.trend === "up" || product.change > 0;
-  const isDown = product.trend === "down" || product.change < 0;
-  
-  const badgeColor = isUp ? "text-red-600 bg-red-50" : isDown ? "text-green-600 bg-green-50" : "text-gray-600 bg-gray-50";
-  const icon = isUp ? "▲" : isDown ? "▼" : "—";
-  const changeText = toBengaliNumber(Math.abs(product.change || 0).toFixed(1));
-  const productSlug = product.slug || product.name;
+export default function ProductCard({ product }: { product: Product }) {
+  const trend = getTrend(product.change?.dir, product.change?.pct);
+  const unit = unitBn[product.unit || ""] ?? (product.unit || "একক");
 
   return (
-    <Link href={`/product/${productSlug}`} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center text-3xl">
-          {product.emoji || "📦"}
+    <Link href={`/product/${product.slug}`} className="bg-white border border-gray-100 rounded-2xl p-5 hover:shadow-md transition-shadow group">
+      <div className="flex justify-between items-start mb-4">
+        <div className="text-4xl bg-gray-50 p-3 rounded-xl group-hover:scale-105 transition-transform">
+          {product.image || "📦"}
         </div>
-        <div>
-          <h3 className="font-bold text-gray-900 text-lg">{product.name}</h3>
-          <p className="text-gray-500 text-sm">প্রতি {product.unit}</p>
+        <div className={`px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1 ${trend.color}`}>
+          {trend.icon} {bn(Math.abs(product.change?.pct || 0), 1)}%
         </div>
       </div>
-      <div className="flex items-end justify-between mt-auto pt-4 border-t border-gray-50">
-        <div>
-          <p className="text-xs text-gray-500 mb-1">আজকের দাম</p>
-          <p className="font-bold text-2xl text-gray-900">
-            {toBengaliNumber(product.price)} <span className="text-base font-normal">টাকা</span>
-          </p>
-        </div>
-        <div className={`px-2 py-1 rounded-md text-xs font-bold flex items-center gap-1 ${badgeColor}`}>
-          <span>{icon}</span> {changeText}%
-        </div>
+      <h3 className="font-bold text-gray-900 text-lg mb-1">{product.nameBn}</h3>
+      <div className="flex items-end gap-1">
+        <span className="text-xl font-bold text-green-700">৳{bn(product.today || 0)}</span>
+        <span className="text-sm text-gray-500 mb-0.5">/ {unit}</span>
       </div>
     </Link>
   );

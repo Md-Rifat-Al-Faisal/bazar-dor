@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="bn" data-theme="light">
       <body className="antialiased text-gray-900 bg-white flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-grow">
+        <main className="grow">
           {children}
         </main>
         <Footer />

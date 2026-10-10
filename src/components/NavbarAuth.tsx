@@ -3,13 +3,17 @@
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function NavbarAuth() {
   const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
 
   const handleSignOut = async () => {
     await authClient.signOut();
     toast.success("সফলভাবে লগআউট হয়েছে");
+    router.push("/");
+    router.refresh();
   };
 
   if (isPending) {
@@ -19,13 +23,15 @@ export default function NavbarAuth() {
   if (session?.user) {
     return (
       <div className="flex items-center gap-3">
-        <Link href="/profile" className="text-sm font-bold text-gray-700 hover:text-green-700 hidden sm:block">
-          {session.user.name}
+        <Link href="/profile" className="flex items-center gap-2 hover:opacity-80">
+          <div className="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-sm">
+            {session.user.name?.charAt(0).toUpperCase() || "U"}
+          </div>
+          <span className="text-sm font-bold text-gray-700 hidden sm:block">
+            {session.user.name}
+          </span>
         </Link>
-        <button 
-          onClick={handleSignOut} 
-          className="btn btn-sm bg-red-50 text-red-600 hover:bg-red-100 border-none"
-        >
+        <button onClick={handleSignOut} className="btn btn-sm bg-red-50 text-red-600 hover:bg-red-100 border-none">
           লগআউট
         </button>
       </div>
@@ -34,8 +40,8 @@ export default function NavbarAuth() {
 
   return (
     <div className="flex items-center gap-2">
-      <Link href="/signin" className="btn btn-ghost font-bold">সাইন ইন</Link>
-      <Link href="/signup" className="btn bg-green-700 text-white hover:bg-green-800 border-none">সাইন আপ</Link>
+      <Link href="/signin" className="btn btn-ghost btn-sm sm:btn-md font-bold">সাইন ইন</Link>
+      <Link href="/signup" className="btn btn-sm sm:btn-md bg-green-700 text-white hover:bg-green-800 border-none">সাইন আপ</Link>
     </div>
   );
 }
