@@ -38,10 +38,16 @@ function UpdateForm({
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (name.trim().length < 3) {
+      toast.error("নাম কমপক্ষে ৩ অক্ষরের হতে হবে।");
+      return;
+    }
+
     setLoading(true);
 
     const { error } = await authClient.updateUser({
-      name: name,
+      name: name.trim(),
     });
 
     if (error) {
@@ -64,7 +70,7 @@ function UpdateForm({
           </p>
         </div>
 
-        <form onSubmit={handleUpdate} className="space-y-5">
+        <form onSubmit={handleUpdate} noValidate className="space-y-5">
           <div>
             <label className="block text-sm font-medium text-ink mb-1">
               নতুন নাম

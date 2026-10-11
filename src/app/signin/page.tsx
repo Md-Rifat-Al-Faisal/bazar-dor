@@ -8,6 +8,8 @@ import { FaGithub } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 
+const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
 function SignInForm() {
   const router = useRouter();
   const params = useSearchParams();
@@ -26,6 +28,16 @@ function SignInForm() {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!emailPattern.test(email)) {
+      toast.error("সঠিক ইমেইল ঠিকানা দিন।");
+      return;
+    }
+    if (!password) {
+      toast.error("পাসওয়ার্ড লিখুন।");
+      return;
+    }
+
     setLoading(true);
 
     const { error } = await authClient.signIn.email({ email, password });
@@ -46,7 +58,7 @@ function SignInForm() {
 
   return (
     <div className="max-w-md w-full bg-surface rounded-3xl border border-line p-8">
-      <form onSubmit={handleSignIn} className="space-y-5">
+      <form onSubmit={handleSignIn} noValidate className="space-y-5">
         <div>
           <label className="block text-sm font-medium text-ink mb-1">ইমেইল</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="w-full px-4 py-2 border border-line rounded-lg bg-surface placeholder-gray-400 focus:ring-2 focus:ring-green-600 outline-none" required />
@@ -78,8 +90,8 @@ export default function SignInPage() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-ink">সাইন ইন</h2>
-        <p className="mt-2 text-sm text-muted">বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন। </p>
+        <h1 className="text-3xl font-bold text-ink">সাইন ইন</h1>
+        <p className="mt-2 text-sm text-muted">বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</p>
       </div>
       <Suspense fallback={<div className="loading loading-spinner loading-lg text-green-700"></div>}>
         <SignInForm />

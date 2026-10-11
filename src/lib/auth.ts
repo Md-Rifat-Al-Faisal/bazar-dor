@@ -23,9 +23,14 @@ const baseURL = [
 export const auth = betterAuth({
     baseURL,
     database: mongodbAdapter(db),
+    session: {
+        cookieCache: {
+            enabled: true,
+            maxAge: 5 * 60,
+        },
+    },
     emailAndPassword: {
         enabled: true,
-        autoSignIn: false,
     },
     socialProviders: {
         google: {

@@ -20,23 +20,29 @@
 
 ![Homepage Preview](public/Homepage.png)
 
+Bazar Dor shows today's prices of everyday items such as rice, lentils, oil, vegetables, fish and meat, along with how much each price has risen or fallen. Price data is fetched from the Programming Hero Bazar Dor API (`https://openapi.programming-hero.com/api/bazardor`).
+
 ## ✨ Key Features
 
-- **Live Price Ticker:** A continuous marquee in the navbar displaying the latest prices and trends.
-- **Dynamic Categories & Sorting:** Browse products by categories with built-in price sorting functionality.
+- **Live Price Ticker:** A continuous marquee below the navbar displaying the latest prices and trends.
+- **Dynamic Categories & Sorting:** Browse products by category with built-in price sorting (default, low to high, high to low) that handles Bengali numerals correctly.
 - **Market Price Comparison:** View detailed minimum, maximum, and average prices across different markets in Bangladesh.
 - **Authentication System:** Secure email/password login and social logins (Google & GitHub) powered by BetterAuth.
-- **Protected Routes:** Product details and user profiles are restricted to authenticated users.
-- **Responsive Design:** Optimized layout scaling perfectly across mobile, tablet, and desktop devices.
+- **Protected Routes:** Product details and user profiles are restricted to authenticated users, with a toast and redirect for visitors who are not signed in.
+- **Profile Management:** Update your display name from the My Profile page.
+- **Smooth User Experience:** Skeleton loaders, Bangla toast notifications, Bengali numerals and a friendly 404 page.
+- **Responsive Design:** Optimized layout scaling across mobile, tablet, and desktop devices.
 
 ## 🛠️ Technology Stack
 
 | Category | Technology |
 | :--- | :--- |
 | **Framework** | Next.js 16 (App Router), React 19 |
+| **Language** | TypeScript |
 | **Styling** | Tailwind CSS, DaisyUI |
 | **Authentication** | BetterAuth (Email, Google, GitHub) |
 | **Database** | MongoDB Atlas (Native Adapter) |
+| **UI Extras** | react-hot-toast, react-icons |
 | **Deployment** | Vercel |
 
 ## 📦 Installation & Setup
@@ -53,6 +59,7 @@ npm install
 ```
 
 **3. Set up Environment Variables**
+
 Create a `.env` file in the root directory and add the following:
 ```env
 MONGODB_URI=your_mongodb_connection_string
@@ -68,4 +75,13 @@ GITHUB_CLIENT_SECRET=your_github_client_secret
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## 🚀 Deployment
+
+The project is deployed on Vercel. Set the same environment variables in the Vercel project settings, use your live URL as `BETTER_AUTH_URL`, and add the live callback URLs to your Google and GitHub OAuth apps.
+
+## 📄 License
+
+This project was built as part of a learning assignment.

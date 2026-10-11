@@ -8,6 +8,8 @@ import { FaGithub } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 
+const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
 export default function SignUpPage() {
   const router = useRouter();
   const [name, setName] = useState("");
@@ -18,8 +20,20 @@ export default function SignUpPage() {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error("পাসওয়ার্ড দুটি মিলছে না!");
+
+    const message =
+      name.trim().length < 3
+        ? "নাম কমপক্ষে ৩ অক্ষরের হতে হবে।"
+        : !emailPattern.test(email)
+        ? "সঠিক ইমেইল ঠিকানা দিন।"
+        : password.length < 8
+        ? "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।"
+        : password !== confirmPassword
+        ? "পাসওয়ার্ড দুটি মিলছে না!"
+        : null;
+
+    if (message) {
+      toast.error(message);
       return;
     }
 
@@ -27,16 +41,17 @@ export default function SignUpPage() {
     const { error } = await authClient.signUp.email({
       email,
       password,
-      name,
+      name: name.trim(),
     });
 
     if (error) {
       toast.error(error.message || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে।");
       setLoading(false);
     } else {
-      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
-      router.push("/signin");
-    }
+  await authClient.signOut();
+  toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+  router.push("/signin");
+}
   };
 
   const handleSocialLogin = async (provider: "google" | "github") => {
@@ -47,12 +62,12 @@ export default function SignUpPage() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-ink">অ্যাকাউন্ট তৈরি করুন</h2>
+        <h1 className="text-3xl font-bold text-ink">অ্যাকাউন্ট তৈরি করুন</h1>
         <p className="mt-2 text-sm text-muted">বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</p>
       </div>
 
       <div className="max-w-md w-full bg-surface rounded-3xl border border-line p-8">
-        <form onSubmit={handleSignUp} className="space-y-5">
+        <form onSubmit={handleSignUp} noValidate className="space-y-5">
           <div>
             <label className="block text-sm font-medium text-ink mb-1">নাম</label>
             <input
@@ -84,7 +99,6 @@ export default function SignUpPage() {
               placeholder="কমপক্ষে ৮ অক্ষর"
               className="w-full px-4 py-2 border border-line rounded-lg bg-surface placeholder-gray-400 focus:ring-2 focus:ring-green-600 outline-none"
               required
-              minLength={8}
             />
           </div>
           <div>
