@@ -43,7 +43,7 @@
 
 **1. Clone the repository**
 ```bash
-git clone [https://github.com/Md-Rifat-Al-Faisal/bazar-dor.git](https://github.com/Md-Rifat-Al-Faisal/bazar-dor.git)
+git clone https://github.com/Md-Rifat-Al-Faisal/bazar-dor.git
 cd bazar-dor
 ```
 
@@ -55,13 +55,13 @@ npm install
 **3. Set up Environment Variables**
 Create a `.env` file in the root directory and add the following:
 ```env
-MONGODB_URI="your_mongodb_connection_string"
-BETTER_AUTH_SECRET="your_secret_key"
-BETTER_AUTH_URL="http://localhost:3000"
-GOOGLE_CLIENT_ID="your_google_client_id"
-GOOGLE_CLIENT_SECRET="your_google_client_secret"
-GITHUB_CLIENT_ID="your_github_client_id"
-GITHUB_CLIENT_SECRET="your_github_client_secret"
+MONGODB_URI=your_mongodb_connection_string
+BETTER_AUTH_SECRET=your_secret_key
+BETTER_AUTH_URL=http://localhost:3000
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
 ```
 
 **4. Run the development server**

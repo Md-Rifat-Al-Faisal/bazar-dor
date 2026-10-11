@@ -5,7 +5,23 @@ import { MongoClient } from "mongodb";
 const client = new MongoClient(process.env.MONGODB_URI as string);
 const db = client.db("bazardor");
 
+const clean = (value?: string) => (value ?? "").replace(/["'\s]/g, "");
+
+const baseURL = [
+    clean(process.env.BETTER_AUTH_URL),
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${clean(process.env.VERCEL_PROJECT_PRODUCTION_URL)}` : "",
+    "http://localhost:3000",
+].find((url) => {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+});
+
 export const auth = betterAuth({
+    baseURL,
     database: mongodbAdapter(db),
     emailAndPassword: {
         enabled: true,
