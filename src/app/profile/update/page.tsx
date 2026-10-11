@@ -1,19 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
 export default function UpdateProfilePage() {
+  const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
 
-  if (isPending) {
+  useEffect(() => {
+    if (!isPending && !session) {
+      router.replace("/signin?reason=protected&redirect=%2Fprofile%2Fupdate");
+    }
+  }, [isPending, session, router]);
+
+  if (isPending || !session) {
     return (
-      <main className="min-h-[70vh] bg-gray-50/50 flex justify-center items-center">
+      <div className="min-h-[70vh] flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-green-700"></span>
-      </main>
+      </div>
     );
   }
 
@@ -48,18 +55,18 @@ function UpdateForm({
   };
 
   return (
-    <main className="min-h-[70vh] bg-gray-50/50 py-12 px-4">
-      <div className="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+    <div className="min-h-[70vh] py-12 px-4">
+      <div className="max-w-md mx-auto bg-surface border border-line rounded-3xl p-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">তথ্য আপডেট করুন</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-ink">তথ্য আপডেট করুন</h1>
+          <p className="text-muted text-sm mt-1">
             আপনার প্রোফাইলের নাম পরিবর্তন করুন
           </p>
         </div>
 
         <form onSubmit={handleUpdate} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-ink mb-1">
               নতুন নাম
             </label>
             <input
@@ -67,7 +74,7 @@ function UpdateForm({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="আপনার পুরো নাম লিখুন"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 outline-none"
+              className="w-full px-4 py-2 border border-line rounded-lg bg-canvas/40 placeholder-gray-400 focus:ring-2 focus:ring-green-600 outline-none"
               required
             />
           </div>
@@ -79,13 +86,13 @@ function UpdateForm({
             <button
               type="submit"
               disabled={loading || !name}
-              className="btn bg-green-700 text-white hover:bg-green-800 border-none flex-1 disabled:bg-gray-400"
+              className="btn bg-green-700 text-white hover:bg-green-800 border-none shadow-md flex-1 disabled:bg-soft"
             >
-              {loading ? "আপডেট হচ্ছে..." : "সেভ করুন"}
+              {loading ? "আপডেট হচ্ছে..." : "তথ্য আপডেট করুন"}
             </button>
           </div>
         </form>
       </div>
-    </main>
+    </div>
   );
 }
