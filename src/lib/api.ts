@@ -15,24 +15,13 @@ export interface Product {
   markets?: { market: string; division: string; min: number; max: number; }[];
 }
 
-const BASES = [
-  "https://openapi.programming-hero.com/api/bazardor",
-  "https://api.abcz.workers.dev/api/bazardor",
-];
+const BASE_URL = "https://openapi.programming-hero.com/api/bazardor";
 
 async function get<T>(path: string): Promise<T> {
-  let err: unknown;
-  for (const b of BASES) {
-    try {
-      const r = await fetch(b + path, { next: { revalidate: 3600 } });
-      if (!r.ok) throw new Error(String(r.status));
-      const data = await r.json();
-      return (Array.isArray(data) ? data : data?.data || []) as T;
-    } catch (e) {
-      err = e;
-    }
-  }
-  throw err;
+  const res = await fetch(BASE_URL + path, { next: { revalidate: 3600 } });
+  if (!res.ok) throw new Error(String(res.status));
+  const data = await res.json();
+  return (Array.isArray(data) ? data : data?.data || []) as T;
 }
 
 export const getProducts = () => get<Product[]>("/products");

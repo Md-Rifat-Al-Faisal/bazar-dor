@@ -2,66 +2,57 @@
 
 import { useState } from "react";
 import ProductCard from "@/components/ProductCard";
-import { toBengaliNumber } from "@/utils/banglaConverter";
+import { Product } from "@/lib/api";
 
-interface Product {
-  name: string;
-  slug: string;
-  price: number;
-  unit: string;
-  emoji: string;
-  trend: string;
-  change: number;
-  category: string;
-}
-
-interface CategoryClientProps {
-  categoryName: string;
-  categoryIcon: string;
-  initialProducts: Product[];
-}
-
-export default function CategoryClient({ categoryName, categoryIcon, initialProducts }: CategoryClientProps) {
+export default function CategoryClient({ 
+  categoryName, 
+  initialProducts 
+}: { 
+  categoryName: string; 
+  initialProducts: Product[]; 
+}) {
   const [sort, setSort] = useState("default");
 
   const sortedProducts = [...initialProducts].sort((a, b) => {
-    if (sort === "low") return a.price - b.price;
-    if (sort === "high") return b.price - a.price;
-    return 0; 
+    if (sort === "price_asc") return (a.today || 0) - (b.today || 0);
+    if (sort === "price_desc") return (b.today || 0) - (a.today || 0);
+    return 0;
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4">
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center mb-8">
-        <div className="flex items-center gap-4">
-          <div className="text-4xl bg-gray-50 p-3 rounded-full">{categoryIcon}</div>
+    <div className="min-h-[70vh] bg-gray-50/50 py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{categoryName}</h1>
-            <p className="text-gray-500 text-sm mt-1">{toBengaliNumber(initialProducts.length)}টি পণ্যের আজকের দাম ও পরিবর্তন</p>
+            <h1 className="text-3xl font-bold text-gray-900">{categoryName}</h1>
+            <p className="text-gray-500 mt-1">{initialProducts.length} টি পণ্য পাওয়া গেছে</p>
           </div>
-        </div>
-      </div>
-
-      <div className="flex justify-between items-center mb-6">
-        <p className="text-gray-500 text-sm">মোট {toBengaliNumber(initialProducts.length)}টি পণ্য দেখানো হচ্ছে</p>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600 font-medium">সাজান:</span>
           <select 
-            className="select select-bordered select-sm bg-white font-medium outline-none focus:outline-none"
+            className="select select-bordered bg-gray-50 border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-600 w-full md:w-auto font-medium"
             value={sort}
             onChange={(e) => setSort(e.target.value)}
           >
-            <option value="default">ডিফল্ট</option>
-            <option value="low">দাম: কম থেকে বেশি</option>
-            <option value="high">দাম: বেশি থেকে কম</option>
+            <option value="default">ডিফল্ট সর্টিং</option>
+            <option value="price_asc">দাম: কম থেকে বেশি</option>
+            <option value="price_desc">দাম: বেশি থেকে কম</option>
           </select>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {sortedProducts.map((product, i) => (
-          <ProductCard key={i} product={product} />
-        ))}
+        {initialProducts.length === 0 ? (
+          <div className="bg-white rounded-2xl p-12 text-center shadow-sm border border-gray-100">
+            <div className="text-6xl mb-4">🛒</div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">কোনো পণ্য পাওয়া যায়নি</h2>
+            <p className="text-gray-500">এই ক্যাটাগরিতে আপাতত কোনো পণ্য নেই।</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {sortedProducts.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+        )}
+        
       </div>
     </div>
   );

@@ -17,14 +17,14 @@ export default function Hero() {
             বাজার দর-এ আপনি পাচ্ছেন নিত্যপ্রয়োজনীয় পণ্যের সর্বশেষ এবং সঠিক দামের তালিকা। বাজারে যাওয়ার আগে আপনার বাজেট মিলিয়ে নিন।
           </p>
           <div className="flex items-center justify-center md:justify-start gap-4">
-            {/* অ্যাঙ্কর লিংকটি ঠিক করা হয়েছে */}
+           
             <Link href="#সব-পণ্য" className="btn bg-green-700 text-white hover:bg-green-800 border-none px-8">
               আজকের দাম দেখুন
             </Link>
           </div>
         </div>
         <div className="flex-1 flex justify-center md:justify-end">
-          {/* ইমেজের সাইজ ঠিক করা হয়েছে যাতে ব্লার না হয় */}
+         
           <Image 
             alt="বাজার দর হিরো" 
             className="w-auto h-auto max-w-full drop-shadow-xl" 
