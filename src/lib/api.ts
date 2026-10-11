@@ -7,6 +7,7 @@ export interface Product {
   nameBn?: string;
   slug?: string;
   today?: number;
+  yesterday?: number;
   unit?: string;
   image?: string;
   change?: { dir?: string; pct?: number; };
@@ -31,3 +32,8 @@ export const getProductDetails = async (slug: string) => {
   const products = await getProducts();
   return products.find((p) => p.slug === slug) ?? null;
 };
+export interface Category {
+  nameBn: string;
+  slug: string;
+  icon?: string;
+}

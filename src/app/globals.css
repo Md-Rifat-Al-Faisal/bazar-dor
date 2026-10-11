@@ -1,16 +1,47 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+  --color-canvas: #f1f5f1;
+  --color-surface: #fafcfa;
+  --color-line: #e3e8e2;
+  --color-ink: #202720;
+  --color-muted: #616762;
+  --color-soft: #8c918c;
+  --color-rise: #b94440;
+  --color-fall: #529759;
+  --color-green-50: #eef6ef;
+  --color-green-100: #e5f1e8;
+  --color-green-600: #529759;
+  --color-green-700: #468747;
+  --color-green-800: #3a7040;
+  --color-red-600: #b94440;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-line);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 @keyframes marquee {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
 
 .animate-marquee {
-  animation: marquee 40s linear infinite; 
+  animation: marquee 40s linear infinite;
   width: max-content;
 }
 
 .animate-marquee:hover {
-  animation-play-state: paused; 
+  animation-play-state: paused;
 }

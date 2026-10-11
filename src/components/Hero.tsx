@@ -1,40 +1,40 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Hero() {
+  const banglaDate = new Date().toLocaleDateString("bn-BD", {
+    timeZone: "Asia/Dhaka",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
-    <div className="bg-green-50/50 border-b border-green-100">
-      <div className="max-w-6xl mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
-        <div className="flex-1 text-center md:text-left">
-          <div className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-bold mb-6">
-            প্রতিদিনের বাজার আপডেট
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            সঠিক দাম জানুন, <br className="hidden md:block" />
-            <span className="text-green-700">স্মার্ট শপিং করুন</span>
-          </h1>
-          <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto md:mx-0">
-            বাজার দর-এ আপনি পাচ্ছেন নিত্যপ্রয়োজনীয় পণ্যের সর্বশেষ এবং সঠিক দামের তালিকা। বাজারে যাওয়ার আগে আপনার বাজেট মিলিয়ে নিন।
+    <section className="max-w-6xl mx-auto px-4 pt-6">
+      <div className="bg-surface border border-line rounded-3xl p-5 md:p-6 flex flex-col md:flex-row md:items-start justify-between gap-6">
+        <div className="flex-1 space-y-4">
+          <span className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+            {banglaDate}
+          </span>
+          <h1 className="text-3xl font-bold text-ink">আজকের বাজারের দাম এক নজরে</h1>
+          <p className="text-muted max-w-2xl">
+            চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম — বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
           </p>
-          <div className="flex items-center justify-center md:justify-start gap-4">
-           
-            <Link href="#সব-পণ্য" className="btn bg-green-700 text-white hover:bg-green-800 border-none px-8">
-              আজকের দাম দেখুন
-            </Link>
-          </div>
+          <a href="#সব-পণ্য" className="btn bg-green-700 text-white hover:bg-green-800 border-none shadow-md px-6">
+            সব পণ্য দেখুন
+          </a>
         </div>
-        <div className="flex-1 flex justify-center md:justify-end">
-         
-          <Image 
-            alt="বাজার দর হিরো" 
-            className="w-auto h-auto max-w-full drop-shadow-xl" 
-            height={263} 
-            src="/bazar-hero.png" 
-            width={315} 
+        <div className="flex justify-center md:justify-end md:self-center">
+          <Image
+            src="/bazar-hero.png"
+            alt="ফলের ঝুড়ি"
+            width={315}
+            height={263}
+            className="w-56 h-auto"
             priority
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

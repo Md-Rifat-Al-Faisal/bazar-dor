@@ -15,18 +15,18 @@ export default async function Home() {
     .sort((a, b) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
     .slice(0, 6);
 
-  return (
-    <div className="min-h-[70vh] pb-20 bg-gray-50/50">
+    return (
+    <div className="min-h-[70vh] pb-20">
       <Hero />
-      
-      <div className="max-w-6xl mx-auto px-4 mt-16 space-y-16">
-        
+
+      <div className="max-w-6xl mx-auto px-4 mt-12 space-y-12">
+
         {risers.length > 0 && (
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2 mb-6">
-              <span className="text-green-500 text-xl">▲</span> আজ দাম বেড়েছে
+            <h2 className="text-xl font-bold text-ink flex items-center gap-2 mb-5">
+              <span className="text-rise text-base">▲</span> আজ দাম বেড়েছে
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {risers.map((product) => (
                 <ProductCard key={product.slug} product={product} />
               ))}
@@ -36,10 +36,10 @@ export default async function Home() {
 
         {fallers.length > 0 && (
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2 mb-6">
-              <span className="text-red-500 text-xl">▼</span> আজ দাম কমেছে
+            <h2 className="text-xl font-bold text-ink flex items-center gap-2 mb-5">
+              <span className="text-fall text-base">▼</span> আজ দাম কমেছে
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {fallers.map((product) => (
                 <ProductCard key={product.slug} product={product} />
               ))}
@@ -48,11 +48,11 @@ export default async function Home() {
         )}
 
         <section id="সব-পণ্য" className="scroll-mt-24">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">সব পণ্য</h2>
-            <p className="text-gray-500 text-sm mt-1">নিত্যপ্রয়োজনীয় সকল পণ্যের আজকের বাজার দর</p>
+          <div className="mb-5">
+            <h2 className="text-xl font-bold text-ink">সব পণ্য</h2>
+            <p className="text-soft text-sm mt-1">নিত্যপ্রয়োজনীয় সকল পণ্যের আজকের বাজার দর</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.map((product) => (
               <ProductCard key={product.slug} product={product} />
             ))}
